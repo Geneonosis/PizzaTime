@@ -51,10 +51,11 @@ export class AuthenticateComponent {
           //however, this is simply a demo application for an interview, so i will log it 3 different ways to show knowledge
           //cookie
           console.log(`Access Token: ${res.access_token}`);
-          //cache the access token in cookies - no access to server side storage
+          //possible solution - cache the access token in cookies - no access to server side storage
           //document.cookie = `access_token=${res.access_token}`; //the cookie is not secure, and can be accessed by any script on the page
-          //could also store the cookie in localstorage or sessionStorage
+          //possible solution - could also store the cookie in localstorage or sessionStorage
           //localStorage.setItem('access_token', res.access_token); //security drawback - can be accessed by any script on the page
+          //this is the solution I went with in the end:
           sessionStorage.setItem('access_token', res.access_token); //security drawback - can be accessed by any script on the page
           console.groupEnd();
           this.router.navigateByUrl('/placeOrder');
