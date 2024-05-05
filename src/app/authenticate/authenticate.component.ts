@@ -52,12 +52,12 @@ export class AuthenticateComponent {
           //cookie
           console.log(`Access Token: ${res.access_token}`);
           //cache the access token in cookies - no access to server side storage
-          document.cookie = `access_token=${res.access_token}`; //the cookie is not secure, and can be accessed by any script on the page
+          //document.cookie = `access_token=${res.access_token}`; //the cookie is not secure, and can be accessed by any script on the page
           //could also store the cookie in localstorage or sessionStorage
-          localStorage.setItem('access_token', res.access_token); //security drawback - can be accessed by any script on the page
+          //localStorage.setItem('access_token', res.access_token); //security drawback - can be accessed by any script on the page
           sessionStorage.setItem('access_token', res.access_token); //security drawback - can be accessed by any script on the page
           console.groupEnd();
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/placeOrder');
         });
     }
   }
