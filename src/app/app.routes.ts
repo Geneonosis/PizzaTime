@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HomeComponent } from './home/home.component';
-import { OrderComponent } from './order/order.component';
-import { AuthenticateService } from './authenticate.service';
-import { authGuard } from './auth.guard';
+import { PageNotFoundComponent } from './_pages/page-not-found/page-not-found.component';
+import { HomeComponent } from './_pages/home/home.component';
+import { OrderComponent } from './_pages/order/order.component';
+import { AuthenticateService } from './_services/authentication/authenticate.service';
+import { authGuard } from './_guards/auth.guard';
+import { ConfirmedComponent } from './_pages/confirmed/confirmed.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -11,6 +12,11 @@ export const routes: Routes = [
   {
     path: 'placeOrder',
     component: OrderComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'confirmedOrders',
+    component: ConfirmedComponent,
     canActivate: [authGuard],
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

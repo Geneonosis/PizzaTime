@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthenticateService } from '../authenticate.service';
+import { AuthenticateService } from '../../_services/authentication/authenticate.service';
 import {
   FormBuilder,
   FormGroup,

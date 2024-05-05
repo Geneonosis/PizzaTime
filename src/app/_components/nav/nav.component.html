@@ -1,0 +1,16 @@
+<!-- navigational header for the application after the user logs in, allows for moving between order page, orders that have been confirmed, and loging out-->
+<div class="container">
+  <div class="row">
+    <h1>Pizza Time</h1>
+    <a href="/placeOrder" routerLink="/placeOrder" routerLinkActive="active"
+      >Place Order</a
+    >
+    <a
+      href="/confirmedOrders"
+      routerLink="/confirmedOrders"
+      routerLinkActive="active"
+      >Confirmed Orders</a
+    >
+    <button (click)="onLogOut()">Log Out</button>
+  </div>
+</div>

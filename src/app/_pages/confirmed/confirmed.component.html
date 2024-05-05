@@ -1,0 +1,30 @@
+<!-- Show the confirmed orders in a list below, it should be a table with n number of rows based on confirmedOrders-->
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Confirmed Orders</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Crust</th>
+            <th>Flavor</th>
+            <th>Size</th>
+            <th>Table No</th>
+            <th>Manage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of confirmedOrders">
+            <td>{{ order.Crust }}</td>
+            <td>{{ order.Flavor }}</td>
+            <td>{{ order.Size }}</td>
+            <td>{{ order.Table_No }}</td>
+            <td>
+              <button (click)="deleteOrder(order)">delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
