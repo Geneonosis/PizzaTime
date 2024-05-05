@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { OrdersService } from '../../_services/orders/orders.service';
 import { Order } from '../../_tools/interfaces';
 import { Crust, Flavor, Size } from '../../_tools/enums';
