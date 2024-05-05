@@ -1,14 +1,6 @@
-<!-- 
-2. User interface which allows the user to configure:
-a. Crust (string)
-b. Flavor (string)
-c. Size (string)
-d. Table_No (integer)
--->
-
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h2>Order</h2>
       <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
@@ -21,7 +13,7 @@ d. Table_No (integer)
         </div>
         <div class="form-group">
           <label for="Flavor">Flavor</label>
-          <select class="form-contorl" id="Flavor" formControlName="Flavor">
+          <select class="form-control" id="Flavor" formControlName="Flavor">
             <option *ngFor="let flavor of flavorOptions" [value]="flavor">
               {{ flavor }}
             </option>
@@ -44,8 +36,15 @@ d. Table_No (integer)
             formControlName="Table_No"
           />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mt-4">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
       </form>
     </div>
+    <img
+      class="img-fluid col-md-7"
+      src="assets/images/pizza-gif-drake.gif"
+      alt="drake helping out"
+    />
   </div>
 </div>
