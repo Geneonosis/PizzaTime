@@ -12,7 +12,7 @@ export class NavComponent {
   constructor(private router: Router) {}
 
   onLogOut() {
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
     this.router.navigate(['/home']);
   }
 }
