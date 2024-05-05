@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { AuthenticateComponent } from '../authenticate/authenticate.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [AuthenticateComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
