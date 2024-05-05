@@ -3,6 +3,35 @@
   <div class="row">
     <div class="col-md-6">
       <h2>Confirmed Orders</h2>
+      <!-- search feature to filter the confirmedOrders array-->
+      <!-- Table to show list of orders-->
+      <div class="search">
+        <h3>Search</h3>
+        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+          <label>Crust</label>
+          <!-- TODO: change this from an input to a select with options-->
+          <select formControlName="crust">
+            <option *ngFor="let crust of crustOptions" [value]="crust">
+              {{ crust }}
+            </option>
+          </select>
+          <label>Flavor</label>
+          <select formControlName="flavor">
+            <option *ngFor="let flavor of flavorOptions" [value]="flavor">
+              {{ flavor }}
+            </option>
+          </select>
+          <label>Size</label>
+          <select formControlName="size">
+            <option *ngFor="let size of sizeOptions" [value]="size">
+              {{ size }}
+            </option>
+          </select>
+          <label>Table No</label>
+          <input type="number" formControlName="tableNo" />
+          <button type="submit">Search</button>
+        </form>
+      </div>
       <table class="table">
         <thead>
           <tr>
@@ -14,7 +43,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let order of confirmedOrders">
+          <tr *ngFor="let order of confirmedOrdersFiltered">
             <td>{{ order.Crust }}</td>
             <td>{{ order.Flavor }}</td>
             <td>{{ order.Size }}</td>

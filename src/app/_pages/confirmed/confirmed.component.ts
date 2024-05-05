@@ -2,17 +2,42 @@ import { Component } from '@angular/core';
 import { Order } from '../../_tools/interfaces';
 import { OrdersService } from '../../_services/orders/orders.service';
 import { CommonModule } from '@angular/common';
+import {
+  FormGroup,
+  FormsModule,
+  FormControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { Crust, Flavor, Size } from '../../_tools/enums';
 
 @Component({
   selector: 'app-confirmed',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './confirmed.component.html',
   styleUrl: './confirmed.component.css',
 })
 export class ConfirmedComponent {
   public confirmedOrders: Order[] = [];
-  constructor(private ordersService: OrdersService) {}
+  public confirmedOrdersFiltered: Order[] = [];
+
+  public crustOptions: any[] = Object.values(Crust);
+  public flavorOptions: any[] = Object.values(Flavor);
+  public sizeOptions: any[] = Object.values(Size);
+
+  //gonna refactor some stuff into a formgroup
+  public searchForm = new FormGroup({
+    crust: new FormControl(''),
+    flavor: new FormControl(''),
+    size: new FormControl(''),
+    tableNo: new FormControl(0),
+  });
+
+  constructor(private ordersService: OrdersService) {
+    this.crustOptions.unshift('');
+    this.flavorOptions.unshift('');
+    this.sizeOptions.unshift('');
+  }
 
   ngOnInit() {
     this.checkForExistingOrders();
@@ -24,6 +49,7 @@ export class ConfirmedComponent {
         console.log('orders', res);
         const orders = res as Order[];
         this.confirmedOrders = orders;
+        this.confirmedOrdersFiltered = this.confirmedOrders;
       },
       error: (err) => {
         console.error('error getting orders', err);
@@ -48,6 +74,22 @@ export class ConfirmedComponent {
         console.error('error deleting order', err);
         alert('Error deleting order');
       },
+    });
+  }
+
+  onSubmit() {
+    console.log('search values:', this.searchForm.value);
+    const searchValues = this.searchForm.value;
+    this.confirmedOrdersFiltered = this.confirmedOrders.filter((order) => {
+      if (
+        (searchValues.crust === '' || order.Crust === searchValues.crust) &&
+        (searchValues.flavor === '' || order.Flavor === searchValues.flavor) &&
+        (searchValues.size === '' || order.Size === searchValues.size) &&
+        (searchValues.tableNo === 0 || order.Table_No === searchValues.tableNo)
+      ) {
+        return true;
+      }
+      return false;
     });
   }
 }
