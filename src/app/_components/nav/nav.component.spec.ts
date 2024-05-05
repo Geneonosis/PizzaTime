@@ -36,4 +36,10 @@ describe('NavComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should log out the user when onLogOut is called', () => {
+    const routerSpy = spyOn(component['router'], 'navigate'); // Change 'router' access modifier to public
+    component.onLogOut();
+    expect(routerSpy).toHaveBeenCalledWith(['/home']);
+  });
 });

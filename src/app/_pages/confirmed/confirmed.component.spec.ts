@@ -28,4 +28,27 @@ describe('ConfirmedComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should delete an order when deleteOrder(order: Order) is called', () => {
+    const mockOrder: Order = {
+      Order_ID: 10,
+      Crust: 'THIN',
+      Flavor: 'PEPPERONI',
+      Size: 'L',
+      Table_No: 1,
+    };
+
+    const deleteOrderSpy = spyOn(
+      ordersService,
+      'deleteOrderById'
+    ).and.returnValue(of(mockOrder));
+
+    component.deleteOrder(mockOrder);
+
+    if (mockOrder.Order_ID === undefined) {
+      expect(deleteOrderSpy).toThrowError('Order ID is required');
+    }
+
+    expect(deleteOrderSpy).toHaveBeenCalledWith(10);
+  });
 });
