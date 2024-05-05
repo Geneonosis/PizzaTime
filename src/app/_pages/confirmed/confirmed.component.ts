@@ -9,6 +9,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Crust, Flavor, Size } from '../../_tools/enums';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-confirmed',
@@ -20,6 +21,7 @@ import { Crust, Flavor, Size } from '../../_tools/enums';
 export class ConfirmedComponent {
   public confirmedOrders: Order[] = [];
   public confirmedOrdersFiltered: Order[] = [];
+  private subscriptions: Subscription[] = []; // array of subscriptions to unsubscribe from
 
   public crustOptions: any[] = Object.values(Crust);
   public flavorOptions: any[] = Object.values(Flavor);
@@ -34,6 +36,7 @@ export class ConfirmedComponent {
   });
 
   constructor(private ordersService: OrdersService) {
+    //add empty option to the select options
     this.crustOptions.unshift('');
     this.flavorOptions.unshift('');
     this.sizeOptions.unshift('');
@@ -44,7 +47,7 @@ export class ConfirmedComponent {
   }
 
   checkForExistingOrders() {
-    this.ordersService.getAllOrders().subscribe({
+    const sub = this.ordersService.getAllOrders().subscribe({
       next: (res) => {
         console.log('orders', res);
         const orders = res as Order[];
@@ -55,6 +58,7 @@ export class ConfirmedComponent {
         console.error('error getting orders', err);
       },
     });
+    this.subscriptions.push(sub); //add the subscription to the array
   }
 
   deleteOrder(order: Order) {
@@ -63,7 +67,7 @@ export class ConfirmedComponent {
       alert('Error deleting order');
       return;
     }
-    this.ordersService.deleteOrderById(order.Order_ID).subscribe({
+    const sub = this.ordersService.deleteOrderById(order.Order_ID).subscribe({
       next: (res) => {
         console.log('order deleted', res);
         //call checkForExistingOrders to update the list
@@ -75,6 +79,7 @@ export class ConfirmedComponent {
         alert('Error deleting order');
       },
     });
+    this.subscriptions.push(sub); //add the subscription to the array
   }
 
   onSubmit() {
@@ -90,6 +95,14 @@ export class ConfirmedComponent {
         return true;
       }
       return false;
+    });
+  }
+
+  ngOnDestroy() {
+    this.confirmedOrders = [];
+    this.confirmedOrdersFiltered = [];
+    this.subscriptions.forEach((sub) => {
+      sub.unsubscribe(); //unsubscribe from all subscriptions
     });
   }
 }
