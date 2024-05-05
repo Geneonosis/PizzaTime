@@ -27,13 +27,23 @@ export class ConfirmedComponent {
   public flavorOptions: any[] = Object.values(Flavor);
   public sizeOptions: any[] = Object.values(Size);
 
-  //gonna refactor some stuff into a formgroup
   public searchForm = new FormGroup({
     crust: new FormControl(''),
     flavor: new FormControl(''),
     size: new FormControl(''),
     tableNo: new FormControl(0),
   });
+
+  resetSearchForm = () => {
+    this.searchForm = new FormGroup({
+      crust: new FormControl(''),
+      flavor: new FormControl(''),
+      size: new FormControl(''),
+      tableNo: new FormControl(0),
+    });
+    //force a "search" to reset the list
+    this.onSubmit();
+  };
 
   constructor(private ordersService: OrdersService) {
     //add empty option to the select options
@@ -96,6 +106,11 @@ export class ConfirmedComponent {
       }
       return false;
     });
+  }
+
+  onReset() {
+    //put the search criteria back to default
+    this.resetSearchForm();
   }
 
   ngOnDestroy() {
