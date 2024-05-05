@@ -1,1 +1,51 @@
-<p>order works!</p>
+<!-- 
+2. User interface which allows the user to configure:
+a. Crust (string)
+b. Flavor (string)
+c. Size (string)
+d. Table_No (integer)
+-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Order</h2>
+      <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="Crust">Crust</label>
+          <select class="form-control" id="Crust" formControlName="Crust">
+            <option *ngFor="let crust of crustOptions" [value]="crust">
+              {{ crust }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="Flavor">Flavor</label>
+          <select class="form-contorl" id="Flavor" formControlName="Flavor">
+            <option *ngFor="let flavor of flavorOptions" [value]="flavor">
+              {{ flavor }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="Size">Size</label>
+          <select class="form-control" id="Size" formControlName="Size">
+            <option *ngFor="let size of sizeOptions" [value]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="Table_No">Table No</label>
+          <input
+            type="number"
+            class="form-control"
+            id="Table_No"
+            formControlName="Table_No"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
