@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { PageNotFoundComponent } from './_pages/page-not-found/page-not-found.component';
 import { HomeComponent } from './_pages/home/home.component';
 import { OrderComponent } from './_pages/order/order.component';
-import { AuthenticateService } from './_services/authentication/authenticate.service';
 import { authGuard } from './_guards/auth.guard';
 import { ConfirmedComponent } from './_pages/confirmed/confirmed.component';
 
