@@ -64,11 +64,7 @@ export class AuthenticateComponent {
             this.router.navigateByUrl('/placeOrder');
           },
           error: (err) => {
-            console.group('User Not Authenticated');
-            console.log('User not authenticated');
-            console.error(err);
             alert('Invalid username or password');
-            console.groupEnd();
           },
         });
     }
