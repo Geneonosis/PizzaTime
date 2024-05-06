@@ -44,21 +44,32 @@ export class AuthenticateComponent {
       //try to authenticate
       this.authService
         .authenticate(formValue.username, formValue.password)
-        .subscribe((res) => {
-          console.group('User Authenticated');
-          console.log(`User ${formValue.username} authenticated and logged in`);
-          //typically i would not log the access token, as it is a potential security violation,
-          //however, this is simply a demo application for an interview, so i will log it 3 different ways to show knowledge
-          //cookie
-          console.log(`Access Token: ${res.access_token}`);
-          //possible solution - cache the access token in cookies - no access to server side storage
-          //document.cookie = `access_token=${res.access_token}`; //the cookie is not secure, and can be accessed by any script on the page
-          //possible solution - could also store the cookie in localstorage or sessionStorage
-          //localStorage.setItem('access_token', res.access_token); //security drawback - can be accessed by any script on the page
-          //this is the solution I went with in the end:
-          sessionStorage.setItem('access_token', res.access_token); //security drawback - can be accessed by any script on the page
-          console.groupEnd();
-          this.router.navigateByUrl('/placeOrder');
+        .subscribe({
+          next: (res) => {
+            console.group('User Authenticated');
+            console.log(
+              `User ${formValue.username} authenticated and logged in`
+            );
+            //typically i would not log the access token, as it is a potential security violation,
+            //however, this is simply a demo application for an interview, so i will log it 3 different ways to show knowledge
+            //cookie
+            console.log(`Access Token: ${res.access_token}`);
+            //possible solution - cache the access token in cookies - no access to server side storage
+            //document.cookie = `access_token=${res.access_token}`; //the cookie is not secure, and can be accessed by any script on the page
+            //possible solution - could also store the cookie in localstorage or sessionStorage
+            //localStorage.setItem('access_token', res.access_token); //security drawback - can be accessed by any script on the page
+            //this is the solution I went with in the end:
+            sessionStorage.setItem('access_token', res.access_token); //security drawback - can be accessed by any script on the page
+            console.groupEnd();
+            this.router.navigateByUrl('/placeOrder');
+          },
+          error: (err) => {
+            console.group('User Not Authenticated');
+            console.log('User not authenticated');
+            console.error(err);
+            alert('Invalid username or password');
+            console.groupEnd();
+          },
         });
     }
   }
